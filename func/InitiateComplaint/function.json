@@ -1,0 +1,26 @@
+{
+  "bindings": [
+    {
+      "name": "complaint",
+      "type": "queueTrigger",
+      "direction": "in",
+      "queueName": "complaint-initiation",
+      "connection": "AzureWebJobsStorage"
+    },
+    {
+      "type": "blob",
+      "name": "devices",
+      "path": "data/devices.json",
+      "connection": "AzureWebJobsStorage",
+      "direction": "in"
+    },
+    {
+      "type": "table",
+      "name": "$return",
+      "tableName": "complaints",
+      "connection": "AzureWebJobsStorage",
+      "direction": "out"
+    }
+  ],
+  "disabled": false
+}
