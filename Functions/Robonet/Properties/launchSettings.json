@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Robonet": {
+      "commandName": "Project",
+      "commandLineArgs": "host start --cors *"
+    }
+  }
+}

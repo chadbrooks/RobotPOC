@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="RequestCompaint.cs" />
+    <Compile Remove="RequestComplaint.cs" />
+  </ItemGroup>
+  <ItemGroup>    
+    <PackageReference Include="Microsoft.Azure.DocumentDB" Version="1.19.1" />    
+    <PackageReference Include="Microsoft.Azure.Management.EventHub" Version="2.0.3" />    
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="1.0.2" />    
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.1" />    
+    <PackageReference Include="WindowsAzure.ServiceBus" Version="4.1.6" />    
+    <PackageReference Include="WindowsAzure.Storage" Version="8.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+    <title>Robonet Portal</title>
+    <link href="styles/style.css" rel="stylesheet" />
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.10.2.min.js"></script>
+    <script src="scripts/default.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/json2html/1.0.0/json2html.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.json2html/1.0.0/jquery.json2html.min.js"></script>
+    <script>
+        function requestComplaint(row) {
+            // Initiate the request complaint retrieval
+            $.ajax({
+                url: config.ComplaintRequestURL + "?reqid=" + gActivityStatus[row].processed[0],
+                type: "Get",
+                contentType: "application/json",
+                success:function(response){
+                    //logMsg(response);
+                    document.getElementById("notify-msg").innerHTML = response;
+                },
+                error: function(error){
+                    //logMsg(error);
+                }
+            });
+        }
+        function updateComplaint(reqid, tdmloc, delstatus, robid, opstatus, casefilerstatus ) {
+            // Update the complaint
+            var myJSON = {id:'', REQID:reqid, TDMLOC:tdmloc, DELSTATUS:delstatus, ROBID:robid, OPSTATUS:opstatus, CASEFILERTRSTATUS:casefilerstatus };
+            myJSON.OPSTATUS = "delivered";
+
+            $.ajax({
+                url: config.TDMStatusURL + "?reqid=" + reqid,
+                type: "Put",
+                data: JSON.stringify(myJSON),
+                contentType: "application/json",
+                success:function(response){
+                    //logMsg(response);
+                    document.getElementById("notify-msg").innerHTML = response;
+                    //GetTDMStatus();
+                },
+                error: function(error){
+                    //logMsg(error);
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <div class="modal"></div>
+    <div class="header">
+        <h1>Robonet Portal</h1>
+    </div>
+    <div class="container">
+        <div class='menu'>
+            <h2>Select</h2>
+            <ul class="nav" id="tasklist">
+                <!-- <li>
+                    <a id="send-msg" class="idleNav">Send Message</a>
+                </li> -->
+                <li>
+                    <a id="tdm-upload" class="idleNav">TDM Package Upload</a>
+                </li>
+                <li>
+                    <a id="complaint-retrieval" class="idleNav">Complaint Retrieval</a>
+                </li>
+                <li>
+                    <a id="edge-application" class="idleNav">Edge Application</a>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <!--<div class='conversations'></div>-->
+            <!-- <div class='convo' style='display: none'> -->
+            Welcome to Robonet!
+            <div class='TDMUpload' style='display: none'>
+                <div id='txtCurrentDateTime'></div>
+                <div>
+                    <h4>TDM Upload</h4>
+                </div>
+                <div>
+                    <input id="image-file" size=100 type="file" />                        
+                </div>
+                <div>
+                    <button id="btn-upload">Upload File</button>
+                </div>
+                <div id="progress-wrp">
+                        <div class="progress-bar"></div>
+                        <div class="status">0%</div>
+                </div>
+            </div>
+            <div class='ComplaintRetrieval'  style='display: none'>
+                <div id='txtCurrentDateTime'></div>
+                <div>
+                    <h4>Complaint Retrieval</h4>
+                    <!-- <button id="btn-TDMStatus">Add New TDMStatus</button><br> -->
+                    <button id="btn-GetTDMStatus">Get Status</button>
+                    <!-- <button id="btn-DeleteTDMStatus">Delete Table</button> -->
+                    <div id='div-results'></div>
+                    <div id='notify-msg'></div>
+                </div>
+                <div>
+                    <h4>Complaints Received</h4>
+                    <button id="btn-complaintstatus">Get Status</button>
+                    <div id='div-complaintstatus'></div>
+                </div>
+            </div>
+            <div class='EdgeApplication'  style='display: none'>
+                <div id='txtCurrentDateTime'></div>
+                <div>
+                    <h4>Edge Application</h4>
+                </div>
+                <div><h5>Robot 1008</h5></div>
+                <div id='div-TDMFileList'></div>
+                <div id='div-ComplaintUpload'>
+                        <div>
+                            <h4>Complaint Upload</h4>
+                        </div>
+                        <div>
+                            <input id="complaint-file" size=100 type="file" />                        
+                        </div>
+                        <div>
+                            <button id="btn-comupload">Upload File</button>
+                        </div>
+                        <div id='notify-msg2'></div>
+                        <div id="progress-wrp">
+                                <div class="progress-bar"></div>
+                                <div class="status">0%</div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</body>
+</html>
